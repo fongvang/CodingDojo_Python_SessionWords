@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session Words</title>
+<style>
+/* *{
+    outline: 1px dashed red;
+} */
+#container1{
+    display: inline-block;
+    width: 400px;
+    margin: 20px;
+}
+#container2{
+    display: inline-block;
+    width: 400px;
+    height: 400px;
+    border-left: 5px solid black;
+    vertical-align: top;
+}
+#button{
+    margin-left: 48%;
+    width: 200px;
+    height: 40px;
+    border-radius: 13px;
+    margin-top: 5px;
+}
+#clear{
+    margin-left: 48%;
+    width: 200px;
+    height: 40px;
+    border-radius: 13px;
+    margin-top: 5px;
+    background-color: salmon;
+}
+#name{
+    margin-left: 5px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+#color{
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+#button{
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 142px;
+    height: 35px;
+    border-radius: 12px;
+    background-color: dodgerblue;
+}
+#textarea{
+    width: 375px;
+    border: 1px solid black;
+    margin: 20px auto;
+    height: 220px;
+}
+</style>
+
+</head>
+<body>
+    <div id="container1">
+        <h1>Add a new word</h1>
+        <form action="/add" method="POST">
+            {%csrf_token%}
+            <input id="name" type="text" name="text">
+            <br>
+            <label id="color" for="buttons">Choose a color:</label>
+            <br>
+            <input class="radio" type="radio" name="color" value="red">Red
+            <br>
+            <input class="radio" type="radio" name="color" value="green">Green
+            <br>
+            <input class="radio" type="radio" name="color" value="blue">Blue
+            <br>
+            <input class="checkbox" type="hidden" name="showbig" value="20px">Show in BIG fonts!
+            <input class="checkbox" type="checkbox" name="showbig" value="35px">Show in BIG fonts!
+            <br>
+            <button id="button">Add to Session!</button>
+        </form>
+
+    </div>
+ <!-- Two separate divs on one single page! -->
+    <div id="container2">
+        <form action="/clear">
+            <button id="clear">Clear Session!</button>
+            <div id="textarea">
+                <!-- inserted text here -->
+                    {% for i in request.session.words %}
+                <p><span style="color: {{ i.color }}; font-size: {{ i.showbig }};">{{ i.words }}</span>added at: </p>   
+                    {%endfor%}
+            </div>
+        </form>
+    </div>
+</body>
+</html>
